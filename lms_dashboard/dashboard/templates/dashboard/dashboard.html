@@ -1,0 +1,45 @@
+<!-- dashboard_app/templates/dashboard_app/dashboard.html -->
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <h1>Dashboard</h1>
+    <div style="width: 80%; margin: auto;">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch data from the server
+      fetch('/get_data/')
+        .then(response => response.json())
+        .then(data => {
+          // Create a bar chart using Chart.js
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Data Points',
+                data: data.values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        });
+    });
+  </script>
+{% endblock %}
