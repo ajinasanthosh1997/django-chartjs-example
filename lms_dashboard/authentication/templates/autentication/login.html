@@ -1,0 +1,15 @@
+<!-- authentication/templates/authentication/login.html -->
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <h1>Login</h1>
+    <form method="post" action="{% url 'authentication:login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Login</button>
+    </form>
+  </div>
+{% endblock %}

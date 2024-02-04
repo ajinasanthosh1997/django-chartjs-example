@@ -4,12 +4,42 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-    <h1>Dashboard</h1>
-    <div style="width: 80%; margin: auto;">
-      <canvas id="myChart"></canvas>
+  
+    {% comment %} <h1>Dashboard</h1> {% endcomment %}
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;">
+      <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <!-- Chart 1: Bar Chart -->
+        <div style="width:80%;margin: 5rem;">
+          <canvas id="myChart1"></canvas>
+        </div>
+      </div>  
+      <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <!-- Chart 2: Line Chart -->
+        <div style="width:80%; margin: 5rem; margin-top: 20px;">
+          <canvas id="myChart2"></canvas>
+        </div>
+      </div>  
+      <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"> 
+        <!-- Chart 3: Pie Chart -->
+        <div style="width:80%; margin: 5rem; margin-top: 20px;">
+          <canvas id="myChart3"></canvas>
+        </div>
+      </div>  
+      <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <!-- Chart 4: Bar Chart -->
+        <div style="width:80%; margin: 5rem; margin-top: 20px;">
+          <canvas id="myChart4"></canvas>
+        </div>
+      </div>  
+      <div style="background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"> 
+        <!-- Chart 5: Pie Chart -->
+        <div style="width:80%; margin: 5rem; margin-top: 20px;">
+          <canvas id="myChart5"></canvas>
+        </div>
+      </div>  
+    
     </div>
-  </div>
+    
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -17,14 +47,14 @@
       fetch('/get_data/')
         .then(response => response.json())
         .then(data => {
-          // Create a bar chart using Chart.js
-          var ctx = document.getElementById('myChart').getContext('2d');
-          var myChart = new Chart(ctx, {
+          // Chart 1: Bar Chart
+          var ctx1 = document.getElementById('myChart1').getContext('2d');
+          var myChart1 = new Chart(ctx1, {
             type: 'bar',
             data: {
               labels: data.labels,
               datasets: [{
-                label: 'Data Points',
+                label: 'Data Points 1',
                 data: data.values,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -39,7 +69,105 @@
               }
             }
           });
-        });
+          // Chart 2: Line Chart
+          var ctx2 = document.getElementById('myChart2').getContext('2d');
+          var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Data Points 1',
+                data: data.values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+          // Chart 3: Pie Chart
+          var ctx3 = document.getElementById('myChart3').getContext('2d');
+          var myChart3 = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Data Points 1',
+                data: data.values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+      });
+
+      // Fetch data for Chart 4
+      fetch('/get_data/')
+        .then(response => response.json())
+        .then(data => {
+          var ctx4 = document.getElementById('myChart4').getContext('2d');
+          var myChart4 = new Chart(ctx4, {
+            type: 'radar',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Data Points 2',
+                data: data.values,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+      });
+
+      // Fetch data for Chart 5
+      fetch('/get_data/')
+        .then(response => response.json())
+        .then(data => {
+          var ctx5 = document.getElementById('myChart5').getContext('2d');
+          var myChart5 = new Chart(ctx5, {
+            type: 'doughnut',
+            data: {
+              labels: data.labels,
+              datasets: [{
+                label: 'Data Points 3',
+                data: data.values,
+                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+      });
     });
   </script>
 {% endblock %}
